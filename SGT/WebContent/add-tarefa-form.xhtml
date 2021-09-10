@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title>Adicionar nova Tarefa</title>
+	
+	<h:outputStylesheet library="css" name="style.css"  />
+	<h:outputStylesheet library="css" name="add-tarefa-style.css"  />
+	
+</h:head>
+
+<h:body>
+
+	<div id="wrapper">
+		<div id="header">
+			<h2>Sistema Gerenciador de Tarefas</h2>
+		</div>
+	</div>
+	
+	<div id="container">
+		<h3>Adicionar nova Tarefa</h3>
+
+		<h:messages globalOnly="true" />
+
+		<h:form id="form" style="margin-top: 10px;" >
+			<h:panelGrid columns="3">
+			
+				<h:outputLabel>Título*:</h:outputLabel> <h:inputText value="#{tarefa.titulo}" id="titulo" 
+									required="true"
+            							requiredMessage="título é obrigatório."/> <h:message for="titulo" />
+				<h:outputLabel>Descrição:</h:outputLabel> <h:inputText value="#{tarefa.descricao}" id="descricao" /> <h:message for="descricao" />
+				Responsável:<h:selectOneMenu value="#{tarefa.responsavel}">
+					<f:selectItems value="#{tarefa.opcResponsaveis}" />
+				</h:selectOneMenu> <h:message for="responsavel" />
+				Prioridade:
+				<h:selectOneMenu value="#{tarefa.prioridade}">
+					<f:selectItems value="#{tarefa.opcPrioridades}" />
+				</h:selectOneMenu> <h:message for="prioridade" />
+				<h:outputLabel>Deadline:</h:outputLabel> <h:inputText value="#{tarefa.deadline}" id="deadline" /> <h:message for="deadline" />
+				
+				<h:outputLabel /> <h:commandButton value="Salvar" styleClass="save" action="#{tarefaController.addTarefa(tarefa)}"/>
+			
+			</h:panelGrid>
+		</h:form>
+
+		<div style="clear: both;"></div>
+
+		<p><h:outputLink value="list-tarefas.xhtml">Voltar à lista</h:outputLink></p>
+
+	</div>	
+</h:body>
+</html>

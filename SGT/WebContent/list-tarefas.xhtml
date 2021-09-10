@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:metadata>
+  <f:event type="preRenderView" listener="#{tarefaController.loadTarefas()}"/>
+</f:metadata>
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title>Sistema Gerenciador de Tarefas</title>
+	
+	<h:outputStylesheet library="css" name="style.css"  />
+	
+</h:head>
+
+<h:body>
+
+	<div id="wrapper">
+		<div id="header">
+			<h2>Sistema Gerenciador de Tarefas</h2>
+		</div>
+	</div>
+
+	<div id="container">
+
+		<div id="content">
+		
+			<h:messages globalOnly="true" />
+		
+			<h:button value="Nova Tarefa" styleClass="add-tarefa-button" outcome="add-tarefa-form"/>
+			 | <h:button value="Buscar Tarefas" styleClass="add-tarefa-button" outcome="search-tarefa-form"/>
+			
+			<br/><br/>			
+			
+			<h:form>
+						
+			<h:dataTable value="#{tarefaController.tarefas}" var="tempTarefa"
+				styleClass="demo-table" 
+				headerClass="demo-table-header"
+				rowClasses="demo-table-odd-row,demo-table-even-row">
+				
+				<h:column>
+					<f:facet name="header">Número</f:facet>
+					#{tempTarefa.id}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Título</f:facet>
+					#{tempTarefa.titulo}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Descrição</f:facet>
+					#{tempTarefa.descricao}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Responsável</f:facet>
+					#{tempTarefa.responsavel}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Prioridade</f:facet>
+					#{tempTarefa.prioridade}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Deadline</f:facet>
+					#{tempTarefa.deadline}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Situacao</f:facet>
+					#{tempTarefa.situacao}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Ação</f:facet>
+					<h:commandLink value="Editar|"
+						action="#{tarefaController.loadTarefa(tempTarefa.id)}"/>
+					
+					<h:commandLink value="Excluir|"
+						onclick="if (!confirm('Gostaria mesmo de excluir esta tarefa?')) return false"
+						action="#{tarefaController.deleteTarefa(tempTarefa.id)}"/>
+					
+					<h:commandLink value="Concluir"
+						onclick="if (!confirm('Gostaria de concluir esta tarefa?')) return false"
+						action="#{tarefaController.concluirTarefa(tempTarefa)}"/>
+					
+					
+				</h:column>
+
+			</h:dataTable>
+
+			</h:form>
+
+		</div>
+		
+	</div>
+
+</h:body>
+</html>

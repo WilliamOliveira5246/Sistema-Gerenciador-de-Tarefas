@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title>Buscador de Tarefas</title>
+	
+	<h:outputStylesheet library="css" name="style.css"  />
+	<h:outputStylesheet library="css" name="add-tarefa-style.css"  />
+	
+</h:head>
+
+<h:body>
+
+	<div id="wrapper">
+		<div id="header">
+			<h2>Sistema Gerenciador de Tarefas</h2>
+		</div>
+	</div>
+	
+	<div id="container">
+		<h3>Buscador de Tarefas</h3>
+
+		<h:messages globalOnly="true" />
+
+		<h:form id="form" style="margin-top: 10px;" >
+			<h:panelGrid columns="3">
+			
+				<h:outputLabel>Número:</h:outputLabel> <h:inputText value="#{tarefa.id}"/> <h:message for="id" />
+				<h:outputLabel>Título:</h:outputLabel> <h:inputText value="#{tarefa.titulo}" id="titulo"/> <h:message for="titulo" />				 
+				<h:outputLabel>Descrição:</h:outputLabel> <h:inputText value="#{tarefa.descricao}" id="descricao" /> <h:message for="descricao" />
+				Responsável:<h:selectOneMenu value="#{tarefa.responsavel}">
+					<f:selectItems value="#{tarefa.opcResponsaveis}" />
+				</h:selectOneMenu> <h:message for="responsavel" />
+				Situacao:<h:selectOneMenu value="#{tarefa.situacao}">
+					<f:selectItems value="#{tarefa.opcSituacoes}" />
+				</h:selectOneMenu> <h:message for="responsavel" />
+				
+				<!--  <h:inputHidden value="#{tarefa.id}" />-->
+							 
+				<h:commandButton value="Buscar Tarefas" styleClass="save" action="#{tarefaController.loadSearchTarefas(tarefa.id,tarefa.titulo,tarefa.descricao,tarefa.responsavel,tarefa.situacao)}" /> <!--  -->
+			
+			</h:panelGrid>
+		</h:form>
+		
+		<br/><br/>
+		
+		<h:form>
+			
+			<h:dataTable value="#{tarefaController.tarefas}" var="tempTarefa"
+				styleClass="demo-table" 
+				headerClass="demo-table-header"
+				rowClasses="demo-table-odd-row,demo-table-even-row">
+				
+				<h:column>
+					<f:facet name="header">Número</f:facet>
+					#{tempTarefa.id}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Título</f:facet>
+					#{tempTarefa.titulo}
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">Responsável</f:facet>
+					#{tempTarefa.responsavel}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Ação</f:facet>
+					<h:commandLink value="Editar|"
+						action="#{tarefaController.loadTarefa(tempTarefa.id)}"/>
+					
+					<h:commandLink value="Excluir|"
+						onclick="if (!confirm('Gostaria mesmo de excluir esta tarefa?')) return false"
+						action="#{tarefaController.deleteTarefa(tempTarefa.id)}"/>
+					
+					<h:commandLink value="Concluir"
+						onclick="if (!confirm('Gostaria de concluir esta tarefa?')) return false"
+						action="#{tarefaController.concluirTarefa(tempTarefa)}"/>
+				</h:column>
+
+			</h:dataTable>
+			
+		</h:form>
+
+		<div style="clear: both;"></div>
+
+		<p><h:outputLink value="list-tarefas.xhtml">Voltar à lista</h:outputLink></p>
+
+	</div>	
+</h:body>
+</html>
