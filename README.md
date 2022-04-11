@@ -5,7 +5,7 @@ O programa implementa uma pagina dinâmica web, um sistema para incluir,
 atualizar e excluir tarefas, além de buscar por filtros,
 tarefas que forem cadastradas.
 
-Foram implementados seguinte projeto, conforme as orientações,
+Foram implementados no seguinte projeto, conforme as orientações,
 os seguintes itens do documento:
 a) e b)
 
